@@ -5,21 +5,20 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "mahasiswa".
+ * This is the model class for table "item_category".
  *
  * @property int $id
- * @property int $nrp
- * @property int $nama
- * @property int|null $email
+ * @property string|null $name
+ * @property int|null $parent_category
  */
-class Mahasiswa extends \yii\db\ActiveRecord
+class ItemCategory extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'mahasiswa';
+        return 'item_category';
     }
 
     /**
@@ -28,8 +27,8 @@ class Mahasiswa extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nrp', 'nama'], 'required'],
-            [['nrp', 'nama', 'email'], 'integer'],
+            [['parent_category'], 'integer'],
+            [['name'], 'string', 'max' => 255],
         ];
     }
 
@@ -40,9 +39,8 @@ class Mahasiswa extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'nrp' => 'Nrp',
-            'nama' => 'Nama',
-            'email' => 'Email',
+            'name' => 'Name',
+            'parent_category' => 'Parent Category',
         ];
     }
 }

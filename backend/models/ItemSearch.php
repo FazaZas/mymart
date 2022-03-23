@@ -1,15 +1,17 @@
 <?php
 
+// 3121550004 M. Faza Nur Husain
+
 namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Mahasiswa;
+use app\models\item;
 
 /**
- * MahasiswaSearch represents the model behind the search form of `app\models\Mahasiswa`.
+ * ItemSearch represents the model behind the search form of `app\models\item`.
  */
-class MahasiswaSearch extends Mahasiswa
+class ItemSearch extends item
 {
     /**
      * {@inheritdoc}
@@ -17,7 +19,8 @@ class MahasiswaSearch extends Mahasiswa
     public function rules()
     {
         return [
-            [['id', 'nrp', 'nama', 'email'], 'integer'],
+            [['id', 'price', 'cetegory_id'], 'integer'],
+            [['name'], 'safe'],
         ];
     }
 
@@ -39,7 +42,7 @@ class MahasiswaSearch extends Mahasiswa
      */
     public function search($params)
     {
-        $query = Mahasiswa::find();
+        $query = item::find();
 
         // add conditions that should always apply here
 
@@ -58,10 +61,11 @@ class MahasiswaSearch extends Mahasiswa
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'nrp' => $this->nrp,
-            'nama' => $this->nama,
-            'email' => $this->email,
+            'price' => $this->price,
+            'cetegory_id' => $this->cetegory_id,
         ]);
+
+        $query->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
     }
